@@ -9,7 +9,7 @@ code{
   background-color:#f6f8fa;
 }
 h2, h3{
-font-family: Andale Mono;
+/*font-family: Andale Mono;*/
 font-weight: bolder;
 }
 h2{
@@ -18,14 +18,15 @@ h2{
 h3{
   font-size:larger;
 }
-site.header{
-  border-bottom: 2px solid #383d57;
-  background: #e3e3e3;
+.site-header{
+  border-top: 3px solid #424242;
+  border-bottom: 2px solid #e8e8e8;
 }
 .site-title, .site-title:visited {
   color: #383d57;
   text-transform: uppercase;
   font-size: 34px;
+  font-weight: 400;
 }
 .page-heading, .page-link {
   display: none;
@@ -34,22 +35,32 @@ site.header{
 #markdown-toc::before {
   content: "Contents";
   font-weight: bold;
-  font-size: xx-large;
+  font-size: 22pt;
+  color: white
 }
-#markdown-toc ul {
-  list-style: none;
+
+div.wrapper {max-width:65%;margin-right:10%;}
+div.post-content > p {width:65%;max-width:640;}
+nav.toc-fixed {position:fixed;
+  top:0;
+  left:0;
+  width:20%;
+  min-height: 100%;
+  background: #383d57;
+}
+nav.toc-fixed ul {list-style:none;
+  padding-right:0;
+  margin-right:0;
+  font-size: 18pt;
 }
 #markdown-toc {
-  border: 2px solid #aaa;
-  border-radius:10pt;
-  background: #f6f8fa;
-  padding: 1.5em;
-  list-style: none;
-  display: inline-block;
-  font-size:larger;
-  font-family: monospace;
+  padding-top: 30px;
 }
-nav.toc-fixed {
-  position:fixed;
-  left:5%;
+
+.toc-fixed a{
+  color: white;  
+}
+
+.toc-fixed li{
+  padding-top: 2pt;  
 }
