@@ -210,3 +210,114 @@ sample3 conditionA  batch2  path/to/sample3_reads.fq
 sample4 conditionB  batch1  path/to/sample4_reads.fq
 sample5 conditionB  batch1  path/to/sample5_reads.fq
 ```
+
+
+# Results
+
+## Glance at the quantification
+### Jessie's data
+For Jessie's data there is 3,973,018 reads that map to 9,997 features (RNA isoforms). The vast majority of reads map to no known genes (2,116,898).
+![Jessie quantificationData](/assets/images/reads_Summary_geneLevel.png)
+
+<table>
+    <tr>
+        <th colspan="2">Jessie's: RNA isoform calling</th>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Feature</td>
+        <td>Number of reads</td>
+    </tr>
+    <tr>
+        <td>Unknown gene</td>
+        <td>2,116,898</td>
+    </tr>
+    <tr>
+        <td>RAD51C</td>
+        <td>914,417</td>
+    </tr>
+    <tr>
+        <td>BRIP1</td>
+        <td>364,369</td>
+    </tr>
+    <tr>
+        <td>RAD51D</td>
+        <td>342,505</td>
+    </tr>
+    <tr>
+        <td>CHEK2</td>
+        <td>194,066</td>
+    </tr>
+    <tr>
+        <td>Misc. genes</td>
+        <td>&lt; 10,000</td>
+    </tr>
+</table>
+
+### Hadley's data
+Hadley's data is a bit of mess with very low read for *CDH1* and *PALB2*. Likely there is better read coverage for *CHEK2*. However, sample5 (Barcode 95) had no reads. 
+
+
+<table>
+    <tr>
+        <th colspan="7">Hadly's: RNA isoform calling</th>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Feature</td>
+        <td colspan="6">Number of reads</td>
+    </tr>
+    <tr>
+        <td>Sample 1</td>
+        <td>Sample 2</td>
+        <td>Sample 3</td>
+        <td>Sample 4</td>
+        <td>Sample 5</td>
+        <td>Sample Avg</td>
+    </tr>
+    <tr>
+        <td>Unknown gene</td>
+        <td>43,332</td>
+        <td>322,664</td>
+        <td>299,216</td>
+        <td>275,773</td>
+        <td>687,508</td>
+        <td>325,699</td>
+    </tr>
+    <tr>
+        <td>CDH1</td>
+        <td>456</td>
+        <td>1,814</td>
+        <td>3</td>
+        <td>99</td>
+        <td>2</td>
+        <td>475</td>
+    </tr>
+    <tr>
+        <td>CHEK2</td>
+        <td>60,898</td>
+        <td>169,481</td>
+        <td>69,354</td>
+        <td>64,382</td>
+        <td>0</td>
+        <td>72,823</td>
+    </tr>
+    <tr>
+        <td>PALB2</td>
+        <td>12,313</td>
+        <td>4,820</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>3,427</td>
+    </tr>
+    <tr>
+        <td>PTEN</td>
+        <td>200,441</td>
+        <td>201,507</td>
+        <td>169,626</td>
+        <td>136,301</td>
+        <td>0</td>
+        <td>141,575</td>
+    </tr>
+</table>
