@@ -214,52 +214,44 @@ sample5 conditionB  batch1  path/to/sample5_reads.fq
 
 # Results
 
-## Overview of read alignments
+## Overview: read alignments
 For Jessie's data there is 3,973,018 reads that map to 9,997 features (RNA isoforms). The vast majority of reads map to no known genes (2,116,898).
-Hadley's data is a bit of mess with very low read for *CDH1* and *PALB2*. Likely there is better read coverage for *CHEK2*. However, sample5 (Barcode 95) had no reads.
+
+Hadley's data is a bit of mess with very low reads for *CDH1* and *PALB2*. Luckily, there is better read coverage for *CHEK2*. However, sample5 (Barcode 95) had no reads. For that reason I will exlcude Sample 5 from further analysis.
 
 <table>
     <tr>
-        <th colspan="3" style="text-align:center">Jessie's: RNA isoform calling</th>
+        <th colspan="2" style="text-align:center">Jessie's: RNA isoform calling</th>
     </tr>
     <tr>
-        <th></th>
         <th>Feature</th>
         <th>Number of reads</th>
     </tr>
     <tr>
-        <td></td>
         <td>Unknown gene</td>
         <td>2,116,898</td>
     </tr>
     <tr>
-        <td></td>
         <td>RAD51C</td>
         <td>914,417</td>
     </tr>
     <tr>
-        <td></td>
         <td>BRIP1</td>
         <td>364,369</td>
     </tr>
     <tr>
-        <td></td>
         <td>RAD51D</td>
         <td>342,505</td>
     </tr>
     <tr>
-        <td></td>
         <td>CHEK2</td>
         <td>194,066</td>
     </tr>
     <tr>
-        <td></td>
         <td>Misc. genes</td>
         <td>&lt; 10,000</td>
     </tr>
 </table>
-
-
 
 <table>
     <tr>
@@ -332,3 +324,22 @@ Hadley's data is a bit of mess with very low read for *CDH1* and *PALB2*. Likely
     *Number of reads mapping to each study-specific gene for Jessie's (A) and Hadley's (B) data, respectively*
     </div>
 </div>
+
+### CHEK2 isoforms
+<div class="general-img">
+<img src="assets/images/reads_Summary_isoFormlevel.png" alt="Jessies Quant">
+    <div class="caption">
+    *Number of reads mapping to the most common CHEK2 isoforms (A) and Hadley's (B) data, respectively*
+    </div>
+</div>
+
+
+## For Vanessa
+From Jessie's data the isoforms that map to *BRIP1, RAD51C* and *RAD51D* have been isolated, similarly the count data for these have been extacted. 
+```bash
+## grep each geneID
+grep -e ENSG00000136492 -e ENSG00000108384 -e ENSG00000108384 jessieRun10.isoforms.bed > BRIP1_RAD51C_D.isoforms.bed
+## for count file I want to keep header so awk is easier to use. - Use sed to rename the count header
+awk 'NR==1 || /ENSG00000136492/ || /ENSG00000108384/ || /ENSG00000108384/{print}' jessieRun10_countMatrix.tsv > BRIP1_RAD51C_D.isoforms.tsv
+sed 's/sample1_condition1_batch1/count/' BRIP1_RAD51C_D.isoforms.tsv > BRIP1_RAD51C_D.isoforms.tsv
+```
