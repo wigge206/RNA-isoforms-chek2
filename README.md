@@ -214,60 +214,64 @@ sample5 conditionB  batch1  path/to/sample5_reads.fq
 
 # Results
 
-## Glance at the quantification
-### Jessie's data
+## Overview of read alignments
 For Jessie's data there is 3,973,018 reads that map to 9,997 features (RNA isoforms). The vast majority of reads map to no known genes (2,116,898).
-![Jessie quantificationData](/assets/images/reads_Summary_geneLevel.png)
+Hadley's data is a bit of mess with very low read for *CDH1* and *PALB2*. Likely there is better read coverage for *CHEK2*. However, sample5 (Barcode 95) had no reads.
 
 <table>
     <tr>
-        <th colspan="2">Jessie's: RNA isoform calling</th>
+        <th colspan="3" style="text-align:center">Jessie's: RNA isoform calling</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>Feature</th>
+        <th>Number of reads</th>
     </tr>
     <tr>
         <td></td>
-        <td>Feature</td>
-        <td>Number of reads</td>
-    </tr>
-    <tr>
         <td>Unknown gene</td>
         <td>2,116,898</td>
     </tr>
     <tr>
+        <td></td>
         <td>RAD51C</td>
         <td>914,417</td>
     </tr>
     <tr>
+        <td></td>
         <td>BRIP1</td>
         <td>364,369</td>
     </tr>
     <tr>
+        <td></td>
         <td>RAD51D</td>
         <td>342,505</td>
     </tr>
     <tr>
+        <td></td>
         <td>CHEK2</td>
         <td>194,066</td>
     </tr>
     <tr>
+        <td></td>
         <td>Misc. genes</td>
         <td>&lt; 10,000</td>
     </tr>
 </table>
 
-### Hadley's data
-Hadley's data is a bit of mess with very low read for *CDH1* and *PALB2*. Likely there is better read coverage for *CHEK2*. However, sample5 (Barcode 95) had no reads. 
 
 
 <table>
     <tr>
-        <th colspan="7">Hadly's: RNA isoform calling</th>
+        <th colspan="7" style="text-align:center">Hadly's: RNA isoform calling</th>
     </tr>
     <tr>
-        <td></td>
-        <td>Feature</td>
-        <td colspan="6">Number of reads</td>
+        <th></th>
+        <th>Feature</th>
+        <th colspan="6" style="text-align:center">Number of reads</th>
     </tr>
     <tr>
+        <td><td>
         <td>Sample 1</td>
         <td>Sample 2</td>
         <td>Sample 3</td>
@@ -321,3 +325,8 @@ Hadley's data is a bit of mess with very low read for *CDH1* and *PALB2*. Likely
         <td>141,575</td>
     </tr>
 </table>
+
+<figure>
+    <img src="/assets/images/reads_Summary_geneLevel.png" alt="Jessies Quant" class="general-imag">
+    <figcaption>Number of reads mapping to each study-specific gene for Jessie's (A) and Hadley's (B) data, respectively</figcaption>
+</figure>
