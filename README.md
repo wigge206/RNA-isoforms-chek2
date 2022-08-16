@@ -326,6 +326,9 @@ Hadley's data is a bit of mess with very low read for *CDH1* and *PALB2*. Likely
     </tr>
 </table>
 
-|![by Gene](/assets/images/reads_Summary_geneLevel.png) |
-|:--:|
-| *Number of reads mapping to each study-specific gene for Jessie's (A) and Hadley's (B) data, respectively* |
+<div class=general-img>
+<img src="/assets/images/reads_Summary_geneLevel.png" alt="Jessies Quant">
+    <div class=caption>
+    *Number of reads mapping to each study-specific gene for Jessie's (A) and Hadley's (B) data, respectively*
+    </div>
+</div>
