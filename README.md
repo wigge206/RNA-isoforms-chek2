@@ -350,17 +350,22 @@ In total, there are four files two for each data set.
 </tr>    
 <tr>
     <td>Jessie's: CHEK2</td>
-    <td>GGTTTAGCGCC**ACTCTGCT**</td>
-    <td>GGTTCCATCAGGTTTTTAATTGTACAT</td>
+    <td class='primer'><b>GGTTTAGCGCC</b>ACTCTGCT</td>
+    <td class='primer'>GGTTCCATCAGGTTTTTAATTGTACAT</td>
+    <td>1,852</td>
 </tr> 
 <tr>
     <td>Haley's: CHEK2</td>
-    <td>CAGGTTTAGCGCC**ACTCTGC**</td>
-    <td>AGATGACAGAGTGAAAGAAGGTACA</td>
+    <td class='primer'><b>CAGGTTTAGCGCC</b>ACTCTGC</td>
+    <td class='primer'>AGATGACAGAGTGAAAGAAGGTACA</td>
+    <td>1,754</td>
 </tr>
 <tr>
-    <td colspan="3" style="font-size: 10pt"><sup>1</sup>Based on CHEK2 MANE transcript (ENST00000404276/NM_007194)</td>
-</tr>   
+    <td colspan="4" style="font-size: 10pt"><sup>1</sup>Based on CHEK2 MANE transcript (ENST00000404276/NM_007194)</td>
+</tr> 
+<tr>
+    <td colspan="4" style="font-size: 10pt"><strong>Bold bases:</strong>Bases upstream of the MANE transcript (bases are included in size)</td>
+</tr>  
 </table>
 
 
