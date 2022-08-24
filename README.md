@@ -7,7 +7,7 @@
 The aim of this project is to catalogue <em>CHEK2</em> RNA isoforms using multiple molecular platforms, inlcuding short/long-read sequencing, RT-qPCR and capillary  electrophoresis.
 
 This project will include many collaborators, with my/our focus on using the Nanopore sequencing data to identify known and novel RNA isoforms. 
-We also have some short-read sequecning data done by Vaneesia Lau which we can use to look at junction abundance.
+We also have some short-read sequecning data done by Dr Vaneesa Lau which we can use to look at junction abundance.
 
 ## Nanopore data
 There are two long-read sequencing projects that have *CHEK2* data:
@@ -215,11 +215,11 @@ sample5 conditionB  batch1  path/to/sample5_reads.fq
 # Results
 
 ## Overview: read alignments
-For Jessie's data there is 3,973,018 reads that map to 9,997 features (RNA isoforms). The vast majority of reads map to no known genes (2,116,898).
+THe single LCL Jessie sequence had 3,973,018 reads that map to 9,997 features (RNA isoforms). The vast majority of reads map to no known genes (2,116,898) - these RNA are mapping to chromosome just not within gene boundaries.
 
 Hadley's data is a bit of mess with very low reads for *CDH1* and *PALB2*. Luckily, there is better read coverage for *CHEK2*. However, sample5 (Barcode 95) had no reads. For that reason I will exlcude Sample 5 from further analysis.
 
-<table>
+<table style="float:left; width:35%">
     <tr>
         <th colspan="2" style="text-align:center">Jessie's: RNA isoform calling</th>
     </tr>
@@ -253,7 +253,7 @@ Hadley's data is a bit of mess with very low reads for *CDH1* and *PALB2*. Lucki
     </tr>
 </table>
 
-<table>
+<table style="float:right; width:60%">
     <tr>
         <th colspan="7" style="text-align:center">Hadly's: RNA isoform calling</th>
     </tr>
@@ -318,28 +318,76 @@ Hadley's data is a bit of mess with very low reads for *CDH1* and *PALB2*. Lucki
     </tr>
 </table>
 
+
+Each of Jessie's and Hadley's sequencing run was with multiple PCR products. There was however, a bias towards one gene (e.g. For Jessie 50% of reads mapped to genes of interest mapped to *RAD51C*). These differences are likely due to no attempt in have equal molar amounts of each sample and PCR product on the run - this is my assumption. 
+
 <div class="general-img">
 <img src="assets/images/reads_Summary_geneLevel.png" alt="Jessies Quant">
     <div class="caption">
-    *Number of reads mapping to each study-specific gene for Jessie's (A) and Hadley's (B) data, respectively*
+    Number of reads mapping to each study-specific gene for Jessie's (A) and Hadley's (B) data, respectively.
     </div>
 </div>
 
-### CHEK2 isoforms
+## CHEK2 isoforms
+
+<!-- <div class="general-img">
+<img src="assets/images/reads_Summary_isoFormlevel.png" alt="Jessies Quant">
+    <div class="caption">
+    Number of reads mapping to the most common CHEK2 isoforms (A) and Hadley's (B) data, respectively.
+    </div>
+</div> -->
+
+The complete list of isoform (novel and known) that mapped to CHEK2 are located in the [data folder](https://github.com/wigge206/RNA-isoforms-chek2/tree/main/data) of the github mian branch. Similarly, there is a tab-separated file with number of reads for each isoform.
+In total, there are four files two for each data set. 
+> Note: As the counts require re-mapping there is the chane that reads can be mapped to other known isoforms. This happened for one read in Jessies data.
+
+<table>
+<tr>
+    <th>Name</th>
+    <th>Forward (5`->3`)</th>
+    <th>Reverse (5`->3`)</th>
+    <th>Size (bp)<sup>1</sup></th>
+</tr>    
+<tr>
+    <td>Jessie's: CHEK2</td>
+    <td>GGTTTAGCGCC**ACTCTGCT**</td>
+    <td>GGTTCCATCAGGTTTTTAATTGTACAT</td>
+</tr> 
+<tr>
+    <td>Haley's: CHEK2</td>
+    <td>CAGGTTTAGCGCC**ACTCTGC**</td>
+    <td>AGATGACAGAGTGAAAGAAGGTACA</td>
+</tr>
+<tr>
+    <td colspan="3" style="font-size: 10pt"><sup>1</sup>Based on CHEK2 MANE transcript (ENST00000404276/NM_007194)</td>
+</tr>   
+</table>
+
+
+
+```bash
+## grep each geneID
+grep -e ENSG00000136492 -e ENSG00000108384 -e ENSG00000108384 jessieRun10.isoforms.bed > BRIP1_RAD51C_D.isoforms.bed
+## for count file I want to keep header so awk is easier to use. - Use sed to rename the count header
+awk 'NR==1 || /ENSG00000136492/ || /ENSG00000108384/ || /ENSG00000108384/{print}' jessieRun10_countMatrix.tsv > BRIP1_RAD51C_D.isoforms.tsv
+sed -i 's/sample1_condition1_batch1/count/' BRIP1_RAD51C_D.isoforms.tsv
+```
+
 <div class="general-img">
 <img src="assets/images/reads_Summary_isoFormlevel.png" alt="Jessies Quant">
     <div class="caption">
-    *Number of reads mapping to the most common CHEK2 isoforms (A) and Hadley's (B) data, respectively*
+    *Distribution of log2 counts per CHEK2 isoform for Jessie's (Top) and Hadley's (Bottom) data, respectively. 
+    The median number of read for an isoform is shown with a solid line. The number of reads that 10% *
     </div>
 </div>
 
 
-## For Vanessa
+# For Vanessa
 From Jessie's data the isoforms that map to *BRIP1, RAD51C* and *RAD51D* have been isolated, similarly the count data for these have been extacted. 
 ```bash
 ## grep each geneID
 grep -e ENSG00000136492 -e ENSG00000108384 -e ENSG00000108384 jessieRun10.isoforms.bed > BRIP1_RAD51C_D.isoforms.bed
 ## for count file I want to keep header so awk is easier to use. - Use sed to rename the count header
 awk 'NR==1 || /ENSG00000136492/ || /ENSG00000108384/ || /ENSG00000108384/{print}' jessieRun10_countMatrix.tsv > BRIP1_RAD51C_D.isoforms.tsv
-sed 's/sample1_condition1_batch1/count/' BRIP1_RAD51C_D.isoforms.tsv > BRIP1_RAD51C_D.isoforms.tsv
+sed -i 's/sample1_condition1_batch1/count/' BRIP1_RAD51C_D.isoforms.tsv
 ```
