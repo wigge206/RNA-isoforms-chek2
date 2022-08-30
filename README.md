@@ -219,7 +219,7 @@ THe single LCL Jessie sequence had 3,973,018 reads that map to 9,997 features (R
 
 Hadley's data is a bit of mess with very low reads for *CDH1* and *PALB2*. Luckily, there is better read coverage for *CHEK2*. However, sample5 (Barcode 95) had no reads. For that reason I will exlcude Sample 5 from further analysis.
 
-<table style="float:left; width:35%">
+<table style="float:left; width:35%; margin-right: 5%;">
     <tr>
         <th colspan="2" style="text-align:center">Jessie's: RNA isoform calling</th>
     </tr>
@@ -258,8 +258,8 @@ Hadley's data is a bit of mess with very low reads for *CDH1* and *PALB2*. Lucki
         <th colspan="7" style="text-align:center">Hadly's: RNA isoform calling</th>
     </tr>
     <tr>
-        <th></th>
         <th>Feature</th>
+        <th></th>
         <th colspan="5" style="text-align:center">Number of reads</th>
     </tr>
     <tr>
@@ -272,7 +272,7 @@ Hadley's data is a bit of mess with very low reads for *CDH1* and *PALB2*. Lucki
         <td>Sample Avg</td>
     </tr>
     <tr>
-        <td>Unknown gene</td>
+        <td>Unknown</td>
         <td>43,332</td>
         <td>322,664</td>
         <td>299,216</td>
@@ -330,16 +330,34 @@ Each of Jessie's and Hadley's sequencing run was with multiple PCR products. The
 
 ## CHEK2 isoforms
 
-<!-- <div class="general-img">
-<img src="assets/images/reads_Summary_isoFormlevel.png" alt="Jessies Quant">
-    <div class="caption">
-    Number of reads mapping to the most common CHEK2 isoforms (A) and Hadley's (B) data, respectively.
-    </div>
-</div> -->
-
 The complete list of isoform (novel and known) that mapped to CHEK2 are located in the [data folder](https://github.com/wigge206/RNA-isoforms-chek2/tree/main/data) of the github mian branch. Similarly, there is a tab-separated file with number of reads for each isoform.
-In total, there are four files two for each data set. 
+In total, there are four files - two for each data set. 
 > Note: As the counts require re-mapping there is the chane that reads can be mapped to other known isoforms. This happened for one read in Jessies data.
+
+```bash
+## grep each geneID
+grep -e ENSG00000136492 -e ENSG00000108384 -e ENSG00000108384 jessieRun10.isoforms.bed > BRIP1_RAD51C_D.isoforms.bed
+## for count file I want to keep header so awk is easier to use. - Use sed to rename the count header
+awk 'NR==1 || /ENSG00000136492/ || /ENSG00000108384/ || /ENSG00000108384/{print}' jessieRun10_countMatrix.tsv > BRIP1_RAD51C_D.isoforms.tsv
+sed -i 's/sample1_condition1_batch1/count/' BRIP1_RAD51C_D.isoforms.tsv
+
+## Subset the GENCODE annotation - for ease convert to a bed
+gtf2bed -i gencode.v41.annotation.gtf > gencode.v41.annotation.bed
+grep "\<CHEK2\>" gencode.v41.annotation.bed > chek2.gencode.41.annotation.bed
+```
+
+All *CHEK2* isoforms with Hadley's data begin in the second exon of the MANE transcript (ENST00000404276). My first thought was that Hadley's forward primer must be located in the second exon. However, this is not the case - in fact both Jessie's and Hadley's primers map slightly upstream of the 5`-UTR of ENST00000404276. 
+> Unchecked: I suspect that the early version of the MANE transcript or CHEK2 canonical transcript a had longer 5`-UTR. 
+
+<div class="general-img">
+<img src="assets/images/top10_isoforms.png" alt="Isoform track">
+    <div class="caption">
+    UCSC track of CHEK2 locus with Gencode known isoforms (Bottom track) and the top ten isoforms from Hadley's (Top, green) and Jessie's (Middle, red) FLAIR analysis.
+    </div>
+</div>
+
+
+
 
 <table>
 <tr>
@@ -350,39 +368,39 @@ In total, there are four files two for each data set.
 </tr>    
 <tr>
     <td>Jessie's: CHEK2</td>
-    <td class='primer'><b>GGTTTAGCGCC</b>ACTCTGCT</td>
+    <td class='primer'><u>GGTTTAGCGCC</u>ACTCTGCT</td>
     <td class='primer'>GGTTCCATCAGGTTTTTAATTGTACAT</td>
     <td>1,852</td>
 </tr> 
 <tr>
     <td>Haley's: CHEK2</td>
-    <td class='primer'><b>CAGGTTTAGCGCC</b>ACTCTGC</td>
+    <td class='primer'><u>CAGGTTTAGCGCC</u>ACTCTGC</td>
     <td class='primer'>AGATGACAGAGTGAAAGAAGGTACA</td>
     <td>1,754</td>
 </tr>
 <tr>
-    <td colspan="4" style="font-size: 10pt"><sup>1</sup>Based on CHEK2 MANE transcript (ENST00000404276/NM_007194)</td>
+    <td colspan="4" style="font-size: 10pt"><sup>1</sup> Based on CHEK2 MANE transcript (ENST00000404276/NM_007194)</td>
 </tr> 
 <tr>
-    <td colspan="4" style="font-size: 10pt"><strong>Bold bases:</strong>Bases upstream of the MANE transcript (bases are included in size)</td>
+    <td colspan="4" style="font-size: 10pt"><strong>Underlined:</strong> Bases upstream of the MANE transcript (bases are included in size)</td>
 </tr>  
 </table>
 
 
 
-```bash
-## grep each geneID
-grep -e ENSG00000136492 -e ENSG00000108384 -e ENSG00000108384 jessieRun10.isoforms.bed > BRIP1_RAD51C_D.isoforms.bed
-## for count file I want to keep header so awk is easier to use. - Use sed to rename the count header
-awk 'NR==1 || /ENSG00000136492/ || /ENSG00000108384/ || /ENSG00000108384/{print}' jessieRun10_countMatrix.tsv > BRIP1_RAD51C_D.isoforms.tsv
-sed -i 's/sample1_condition1_batch1/count/' BRIP1_RAD51C_D.isoforms.tsv
-```
+<div class="general-img">
+<img src="assets/images/chek2ExonFreq.tiff" alt="ExonFreq">
+    <div class="caption">
+    Distribution of log2 counts per CHEK2 isoform for Jessie's (Top) and Hadley's (Bottom) data, respectively. 
+    The median number of read for an isoform is shown with a solid line. The number of reads that 10% of reads represents as dotted line.
+    </div>
+</div>
 
 <div class="general-img">
-<img src="assets/images/reads_Summary_isoFormlevel.png" alt="Jessies Quant">
+<img src="assets/images/Read_isoformsDistrubtion.png" alt="Jessies Quant">
     <div class="caption">
-    *Distribution of log2 counts per CHEK2 isoform for Jessie's (Top) and Hadley's (Bottom) data, respectively. 
-    The median number of read for an isoform is shown with a solid line. The number of reads that 10% *
+    Distribution of log2 counts per CHEK2 isoform for Jessie's (Top) and Hadley's (Bottom) data, respectively. 
+    The median number of read for an isoform is shown with a solid line. The number of reads that 10% of reads represents as dotted line.
     </div>
 </div>
 
