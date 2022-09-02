@@ -382,14 +382,15 @@ All *CHEK2* isoforms with Hadley's data begin in the second exon of the MANE tra
     <td colspan="4" style="font-size: 10pt"><sup>1</sup> Based on CHEK2 MANE transcript (ENST00000404276/NM_007194)</td>
 </tr> 
 <tr>
-    <td colspan="4" style="font-size: 10pt"><strong>Underlined:</strong> Bases upstream of the MANE transcript (bases are included in size)</td>
+    <td colspan="4" style="font-size: 10pt"><u>Underlined:</u> Bases upstream of the MANE transcript (bases are included in size)</td>
 </tr>  
 </table>
 
-
+The oddity with Hadley's data translates to isoform with less exons and less known gene's being identified. There are a bunch of isoforms with very few reads which we can excluded from further analysis. For Jessie, 254 (43%) of *CHEK2* isoforms have less than 10 reads. Given there are 194,066 reads that map to *CHEK2* (Sum of all isoforms), these isoforms have very little evidence. Furthermore, 99% of reads map to only 11 isoforms (ten shown in the UCSC track above), including four known (ENST00000348295, ENST00000382580, ENST00000404276 and ENST00000425190) transcripts.
+For Hadley, 128 (76%) of *CHEK2* isoforms have less than 10 average reads, this is misleading as Hadley's data has less number of reads (avg across four samples 91,028). The sum across the four samples does provide greater weight, only 39 (23%) isoforms have less than 10 reads. Similar to Jessie's the vast majority of reads map to a few isoforms, in Hadley's data 99% of summed reads (summed across samples) map to just 7 isoforms. Three of which were know isoforms: ENST00000382580, ENST00000404276 and ENST00000425190 - note these are all smaller isoforms (no reads in exon one).
 
 <div class="general-img">
-<img src="assets/images/chek2ExonFreq.tiff" alt="ExonFreq">
+<img src="assets/images/chek2ExonFreq.png" alt="ExonFreq">
     <div class="caption">
     Distribution of log2 counts per CHEK2 isoform for Jessie's (Top) and Hadley's (Bottom) data, respectively. 
     The median number of read for an isoform is shown with a solid line. The number of reads that 10% of reads represents as dotted line.

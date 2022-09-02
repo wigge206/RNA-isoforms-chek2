@@ -21,7 +21,7 @@ hadley.tsv$total <- rowSums(hadley.tsv[2:6])
 jess.thres <- quantile(jessie.tsv$count,probs = 0.9)
 hadley.thres <- quantile(hadley.tsv$total,probs = 0.1)
 
-### Color palatte
+### Color palate
 median.col <- '#6189df'
 thres.col <- '#6189df'
 
