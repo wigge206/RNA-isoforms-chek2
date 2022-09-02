@@ -336,10 +336,10 @@ In total, there are four files - two for each data set.
 
 ```bash
 ## grep each geneID
-grep -e ENSG00000136492 -e ENSG00000108384 -e ENSG00000108384 jessieRun10.isoforms.bed > BRIP1_RAD51C_D.isoforms.bed
+grep ENSG00000183765 jessieRun10.isoforms.bed > chek2_jessieRun10.isoforms.bed
 ## for count file I want to keep header so awk is easier to use. - Use sed to rename the count header
-awk 'NR==1 || /ENSG00000136492/ || /ENSG00000108384/ || /ENSG00000108384/{print}' jessieRun10_countMatrix.tsv > BRIP1_RAD51C_D.isoforms.tsv
-sed -i 's/sample1_condition1_batch1/count/' BRIP1_RAD51C_D.isoforms.tsv
+awk 'NR==1 || /ENSG00000183765/{print}' jessieRun10_countMatrix.tsv > chek2.jessieRun10.isoforms.tsv
+sed -i 's/sample1_condition1_batch1/count/' chek2.jessieRun10.isoforms.tsv
 
 ## Subset the GENCODE annotation - for ease convert to a bed
 gtf2bed -i gencode.v41.annotation.gtf > gencode.v41.annotation.bed
@@ -386,16 +386,16 @@ All *CHEK2* isoforms with Hadley's data begin in the second exon of the MANE tra
 </tr>  
 </table>
 
-The oddity with Hadley's data translates to isoform with less exons and less known gene's being identified. There are a bunch of isoforms with very few reads which we can excluded from further analysis. For Jessie, 254 (43%) of *CHEK2* isoforms have less than 10 reads. Given there are 194,066 reads that map to *CHEK2* (Sum of all isoforms), these isoforms have very little evidence. Furthermore, 99% of reads map to only 11 isoforms (ten shown in the UCSC track above), including four known (ENST00000348295, ENST00000382580, ENST00000404276 and ENST00000425190) transcripts.
-For Hadley, 128 (76%) of *CHEK2* isoforms have less than 10 average reads, this is misleading as Hadley's data has less number of reads (avg across four samples 91,028). The sum across the four samples does provide greater weight, only 39 (23%) isoforms have less than 10 reads. Similar to Jessie's the vast majority of reads map to a few isoforms, in Hadley's data 99% of summed reads (summed across samples) map to just 7 isoforms. Three of which were know isoforms: ENST00000382580, ENST00000404276 and ENST00000425190 - note these are all smaller isoforms (no reads in exon one).
+The oddity with Hadley's data translates to isoform with less exons where there is a shift in the median number of exons per isofrom. There are medain 14 (range:4-18 exons) and 12 (range:4-17 exons) exon per unique isoform for Jessie's and Hadley's data, respectively. Compared to the *CHEK2* MANE transcript (ENST00000404276) which has 14 exons, there is a clear shift in Hadley's data. In GENCODE there are 24 known *CHEK2* RNA isoforms the number of exons range from 2-16 exons (median=9). However, the PCR assays means only 9 transcripts with the ENST00000404276 exon1 and exon 14 can be amplified.
 
 <div class="general-img">
 <img src="assets/images/chek2ExonFreq.png" alt="ExonFreq">
     <div class="caption">
-    Distribution of log2 counts per CHEK2 isoform for Jessie's (Top) and Hadley's (Bottom) data, respectively. 
-    The median number of read for an isoform is shown with a solid line. The number of reads that 10% of reads represents as dotted line.
+    Distribution of the number of exons in *CHEK2* RNA isoforms for Jessie's (Left, red) and Hadley's (right, green) data, respectively.
     </div>
 </div>
+
+Similary, the number of isoforms that FLAIR annotated based on intron and exon chains are fewer in Hadley's data. Furthermore, the number of total reads mapped to known isoform is estimated to be much lower in Hadley's data set - this is clearly and artifact of the lack of reads in exon 1.
 
 <div class="general-img">
 <img src="assets/images/Read_isoformsDistrubtion.png" alt="Jessies Quant">
@@ -404,6 +404,27 @@ For Hadley, 128 (76%) of *CHEK2* isoforms have less than 10 average reads, this 
     The median number of read for an isoform is shown with a solid line. The number of reads that 10% of reads represents as dotted line.
     </div>
 </div>
+
+There are a bunch of isoforms with very few reads which we can excluded from further analysis. For Jessie, 254 (43%) of *CHEK2* isoforms have less than 10 reads. Given there are 194,066 reads that map to *CHEK2* (Sum of all isoforms), these isoforms have very little evidence. Furthermore, 99% of reads map to only 11 isoforms (ten shown in the UCSC track above), including four known (ENST00000348295, ENST00000382580, ENST00000404276 and ENST00000425190) transcripts.
+For Hadley,only 39 (23%) *CHEK2* isoforms have less than 10 reads when summing the reads across each sample (total summed reads = 364,115). Similar to Jessie's the vast majority of reads map to a few isoforms, in Hadley's data 99% of summed reads (summed across samples) map to just 7 isoforms. Three of which were know isoforms: ENST00000382580, ENST00000404276 and ENST00000425190 - note these are all smaller isoforms.
+
+### Read coverage
+Due to the oddities with the mapping of Hadley's data, it is worth looking into where the reads were mapped. To do this the alignments from `minimap2` were convert to bedgraph files. 
+
+```bash
+## Extract reads overlapping the CHEK2 region chr22:28687743-28742422
+cd /WORKSPACE/George/CHEK2_RNAisoforms/align
+mkdir CHEK2_bam/ 
+samtools view -h  -o CHEK2_bam/Jessie_run10.chek2.bam jessieRun10.bam "chr22:28687000-28743000"
+## sort and index -- not 100% this is needed
+cd CHEK2_bam/
+samtools sort -o Jessie_run10.chek2.sorted.bam Jessie_run10.chek2.bam 
+samtools index Jessie_run10.chek2.sorted.bam
+
+bedtools genomecov -bga -split -ibam Jessie_run10.chek2.sorted.bam > JessieRun10_chek2.bedgraph
+```
+
+
 
 
 # For Vanessa
