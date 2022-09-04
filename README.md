@@ -411,7 +411,7 @@ For Hadley,only 39 (23%) *CHEK2* isoforms have less than 10 reads when summing t
 ### Read coverage
 As FLAIR has no *CHEK2* isoforms that map to exon 1 for Hadley's data, it is worth looking at the coverage of reads across *CHEK2*. Hadley's primers do map to exon 1 and 15 [see discussion around PCR design](#tab:primer) therefore either the primers I found are wrong or something odd has gone on. To do this the alignments from `minimap2` were convert to bedgraph files and an R script was used to visualise these region ([See coverage figure](#fig:CHEK2covarge)).
 
-```bash bedgraph
+```bash
 ## Extract reads overlapping the CHEK2 region chr22:28687743-28742422
 cd /WORKSPACE/George/CHEK2_RNAisoforms/align
 mkdir CHEK2_bam/ 
