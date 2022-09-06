@@ -387,7 +387,7 @@ All *CHEK2* isoforms with Hadley's data begin in the second exon of the MANE tra
 <tr>
     <td colspan="4" style="font-size: 8pt"><sup>1</sup> Based on CHEK2 MANE transcript (ENST00000404276/NM_007194)<br>
     <u>Underlined:</u> Bases upstream of the MANE transcript (bases are included in size)<br>
-    Strikeout: Primers <b>not</d> used in to generate amplicons for sequencing.</td>
+    Strikeout: Primers <b>not</b> used in to generate amplicons for sequencing.</td>
 </tr>  
 </table>
 
