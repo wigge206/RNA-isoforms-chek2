@@ -346,7 +346,7 @@ gtf2bed -i gencode.v41.annotation.gtf > gencode.v41.annotation.bed
 grep "\<CHEK2\>" gencode.v41.annotation.bed > chek2.gencode.41.annotation.bed
 ```
 
-All *CHEK2* isoforms with Hadley's data begin in the second exon of the MANE transcript (ENST00000404276). My first thought was that Hadley's forward primer must be located in the second exon. However, this is not the case - in fact both Jessie's and Hadley's primers map slightly upstream of the 5`-UTR of ENST00000404276. 
+All *CHEK2* isoforms with Hadley's data begin in the second exon of the MANE transcript (ENST00000404276). This is due Hadley's forward primer must being located in the second exon. Interestingly, and a distraction, is Hadley had a set of primers that were designed in the first and last exon. Actullay these and Jessie's primers map slightly upstream of the 5`-UTR of ENST00000404276. 
 > Unchecked: I suspect that the early version of the MANE transcript or CHEK2 canonical transcript a had longer 5`-UTR. 
 
 <div class="general-img">
@@ -374,8 +374,14 @@ All *CHEK2* isoforms with Hadley's data begin in the second exon of the MANE tra
 </tr> 
 <tr>
     <td>Haley's: CHEK2</td>
-    <td class='primer'><u>CAGGTTTAGCGCC</u>ACTCTGC</td>
-    <td class='primer'>AGATGACAGAGTGAAAGAAGGTACA</td>
+    <td class='primer'>CTCAGCAGTCTCATGGCAGC</td>
+    <td class='primer'>CAACACAGCACACACAGC</td>
+    <td>1,754</td>
+</tr>
+<tr>
+    <td><s>Haley's: FL-CHEK2</s></td>
+    <td class='primer'><s><u>CAGGTTTAGCGCC</u>ACTCTGC</s></td>
+    <td class='primer'><s>AGATGACAGAGTGAAAGAAGGTACA</s></td>
     <td>1,754</td>
 </tr>
 <tr>
@@ -425,7 +431,7 @@ bedtools genomecov -bga -split -ibam Jessie_run10.chek2.sorted.bam > JessieRun10
 ```
 
 <div class="general-img">
-<img src="assets/images/CHEK2_coverage.jpg" alt="Read coverage across CHEK2" id="fig:CHEK2covarge">
+<img src="assets/images/CHEK2_coverage.png" alt="Read coverage across CHEK2" id="fig:CHEK2covarge">
     <div class="caption">
     Read coverage for Jessie's (A and B) and Hadley (C and D) across the *CHEK2* regions. Counts are on the natural scale (A and C) and log10 scale (B and D). Each plot contains the coverage of reads (grey) for each sample across known RNA *CHEK2* isoforms (Orange).
     </div>

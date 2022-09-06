@@ -15,6 +15,9 @@ CHEK2_txs <- exonsBy(edb, filter = ~ symbol == 'CHEK2')
 n=length(CHEK2_txs)
 width=4
 height=3
+jes.track.height=1
+had.track.height=1
+lab.size=8
 ######### Jessie's data ######### ######### 
 png("Jessie_CHEK2coverage_naturalScale.png", width=width, height=height, units = 'in',res=300)
 gtrellis_layout(
@@ -23,9 +26,11 @@ gtrellis_layout(
   track_axis = c(TRUE< FALSE),
   n_track = 2,
   track_ylab = c("Coverage", "CHEK2"),
-  track_height = unit.c(unit(1, 'null'), unit(5, 'cm')),
-  add_name_track = TRUE
-)
+  track_height = unit.c(unit(1, 'null'), unit(jes.track.height, 'in')),
+  add_name_track = TRUE,
+  asist_ticks = F,
+  lab_fontsize = lab.size
+  )
 add_lines_track(
   seq_depth, 
   seq_depth$score, 
@@ -58,8 +63,10 @@ gtrellis_layout(
   track_axis = c(TRUE< FALSE),
   n_track = 2,
   track_ylab = c("Coverage (log10)", "CHEK2"),
-  track_height = unit.c(unit(1, 'null'), unit(5, 'cm')),
-  add_name_track = TRUE
+  track_height = unit.c(unit(1, 'null'), unit(jes.track.height, 'in')),
+  add_name_track = TRUE,
+  asist_ticks = F,
+  lab_fontsize = lab.size
 )
 add_lines_track(
   seq_depth, 
@@ -100,9 +107,11 @@ gtrellis_layout(
   n_track = 5,
   track_ylab = c(paste("Sample",1:4), "CHEK2"),
   #track_height = unit.c(unit(1, 'null'), unit(5, 'cm')),
-  track_height = unit.c(unit(.25, 'null'),unit(.25, 'null'),unit(.25, 'null'),unit(.25, 'null'), unit(5, 'cm')),
-  
-  add_name_track = TRUE
+  track_height = unit.c(unit(.25, 'null'),unit(.25, 'null'),unit(.25, 'null'),unit(.25, 'null'), unit(had.track.height, 'in')),
+  asist_ticks = F,
+  add_name_track = TRUE, 
+  #axis_label_fontsize = lab.size,
+  lab_fontsize = lab.size
 )
 add_lines_track(
   b1.seq, 
@@ -152,9 +161,10 @@ gtrellis_layout(
   n_track = 5,
   track_ylab = c(paste("Sample",1:4), "CHEK2"),
   #track_height = unit.c(unit(1, 'null'), unit(5, 'cm')),
-  track_height = unit.c(unit(.25, 'null'),unit(.25, 'null'),unit(.25, 'null'),unit(.25, 'null'), unit(5, 'cm')),
-  
-  add_name_track = TRUE
+  track_height = unit.c(unit(.25, 'null'),unit(.25, 'null'),unit(.25, 'null'),unit(.25, 'null'), unit(had.track.height, 'in')),
+  asist_ticks = F,
+  add_name_track = TRUE,
+  lab_fontsize = lab.size
 )
 add_lines_track(
   b1.seq, 
