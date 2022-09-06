@@ -346,8 +346,8 @@ gtf2bed -i gencode.v41.annotation.gtf > gencode.v41.annotation.bed
 grep "\<CHEK2\>" gencode.v41.annotation.bed > chek2.gencode.41.annotation.bed
 ```
 
-All *CHEK2* isoforms with Hadley's data begin in the second exon of the MANE transcript (ENST00000404276). This is due Hadley's forward primer must being located in the second exon. Interestingly, and a distraction, is Hadley had a set of primers that were designed in the first and last exon. Actullay these and Jessie's primers map slightly upstream of the 5`-UTR of ENST00000404276. 
-> Unchecked: I suspect that the early version of the MANE transcript or CHEK2 canonical transcript a had longer 5`-UTR. 
+All *CHEK2* isoforms with Hadley's data begin in the second exon of the MANE transcript (ENST00000404276). This is due Hadley's forward primer must being located in the second exon. Interestingly, but a major distraction, is Hadley had a set of primers that were designed in the first and last exon **These were not used for sequencing**. 
+> Jessie's primers (and Hadley's unused FL-*CHEK2* primers) map slightly upstream of the 5`-UTR of ENST00000404276. I suspect that the early version of the MANE transcript or CHEK2 canonical transcript a had longer UTR. 
 
 <div class="general-img">
 <img src="assets/images/top10_isoforms.png" alt="Isoform track">
@@ -385,14 +385,13 @@ All *CHEK2* isoforms with Hadley's data begin in the second exon of the MANE tra
     <td>1,754</td>
 </tr>
 <tr>
-    <td colspan="4" style="font-size: 10pt"><sup>1</sup> Based on CHEK2 MANE transcript (ENST00000404276/NM_007194)</td>
-</tr> 
-<tr>
-    <td colspan="4" style="font-size: 10pt"><u>Underlined:</u> Bases upstream of the MANE transcript (bases are included in size)</td>
+    <td colspan="4" style="font-size: 8pt"><sup>1</sup> Based on CHEK2 MANE transcript (ENST00000404276/NM_007194)<br>
+    <u>Underlined:</u> Bases upstream of the MANE transcript (bases are included in size)<br>
+    Strikeout: Primers <b>not</d> used in to generate amplicons for sequencing.</td>
 </tr>  
 </table>
 
-The oddity with Hadley's data translates to isoform with less exons where there is a shift in the median number of exons per isofrom. There are medain 14 (range:4-18 exons) and 12 (range:4-17 exons) exon per unique isoform for Jessie's and Hadley's data, respectively. Compared to the *CHEK2* MANE transcript (ENST00000404276) which has 14 exons, there is a clear shift in Hadley's data. In GENCODE there are 24 known *CHEK2* RNA isoforms the number of exons range from 2-16 exons (median=9). However, the PCR assays means only 9 transcripts with the ENST00000404276 exon1 and exon 14 can be amplified.
+The primer design with Hadley's data translates to isoform with less exons where there is a shift in the median number of exons per isofrom. There are medain 14 (range:4-18 exons) and 12 (range:4-17 exons) exon per unique isoform for Jessie's and Hadley's data, respectively. Compared to the *CHEK2* MANE transcript (ENST00000404276) which has 14 exons, there is a clear shift in Hadley's data. In GENCODE there are 24 known *CHEK2* RNA isoforms the number of exons range from 2-16 exons (median=9). However, the PCR assays means only 9 transcripts with the ENST00000404276 exon1 and exon 14 can be amplified.
 
 <div class="general-img">
 <img src="assets/images/chek2ExonFreq.png" alt="ExonFreq">
@@ -415,7 +414,8 @@ There are a bunch of isoforms with very few reads which we can excluded from fur
 For Hadley,only 39 (23%) *CHEK2* isoforms have less than 10 reads when summing the reads across each sample (total summed reads = 364,115). Similar to Jessie's the vast majority of reads map to a few isoforms, in Hadley's data 99% of summed reads (summed across samples) map to just 7 isoforms. Three of which were know isoforms: ENST00000382580, ENST00000404276 and ENST00000425190 - note these are all smaller isoforms.
 
 ### Read coverage
-As FLAIR has no *CHEK2* isoforms that map to exon 1 for Hadley's data, it is worth looking at the coverage of reads across *CHEK2*. Hadley's primers do map to exon 1 and 15 [see discussion around PCR design](#tab:primer) therefore either the primers I found are wrong or something odd has gone on. To do this the alignments from `minimap2` were convert to bedgraph files and an R script was used to visualise these region ([See coverage figure](#fig:CHEK2covarge)).
+As FLAIR has no *CHEK2* isoforms that map to exon 1 for Hadley's data, it is worth looking at the coverage of reads across *CHEK2*. Originally I assumed Hadley's sequencing data came from the primers that map to exon 1 and 15. However, sometime later I found a second set of *CHEK2* primers ([see discussion around PCR design](#tab:primer)). To look at coverage the alignments from `minimap2` were convert to bedgraph files and an R script was used to visualise these region ([See coverage figure](#fig:CHEK2covarge)).
+> There is a new package ggcoverage which could be worth exploring for this.
 
 ```bash
 ## Extract reads overlapping the CHEK2 region chr22:28687743-28742422
@@ -437,7 +437,8 @@ bedtools genomecov -bga -split -ibam Jessie_run10.chek2.sorted.bam > JessieRun10
     </div>
 </div>
 
-
+## Annotations
+This has been a largely manual process with a little be of scripting to grab the low hanging fruit. I am annotating both the type of (exon skipping, intron inclusion etc.) and the specific r. nomenculature using the ENST00000404276 (MANE transcript) as reference. There appears to be a combination of almost every event.
 
 # For Vanessa
 From Jessie's data the isoforms, and counts data, that map to *BRIP1, RAD51C* and *RAD51D* have been isolated.

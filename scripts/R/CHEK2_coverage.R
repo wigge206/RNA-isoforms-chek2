@@ -13,7 +13,7 @@ CHEK2_region <- range(transcripts(edb, filter = ~symbol == "CHEK2")) +500
 CHEK2_txs <- exonsBy(edb, filter = ~ symbol == 'CHEK2')
 
 n=length(CHEK2_txs)
-width=4
+width=5
 height=3
 jes.track.height=1
 had.track.height=1
