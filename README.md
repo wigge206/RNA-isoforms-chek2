@@ -512,8 +512,8 @@ done
 cd ..
 ```
 
-### Genome generate - SJ aware
-The uses the high confidence splice junction identified from the first alignments to re-annotated the genome. The SJ.out.tab files generated for each sample can be listed in the `--sjdbFileChrStartEnd` option.
+### Second pass aware
+The first step is to re-index the genome using the high confidence splice junction identified from the first alignments. The SJ.out.tab files generated for each sample can be listed in the `--sjdbFileChrStartEnd` option. After re-alignment (second pass), the SJ.out.tab files are converted to bed files and sorted in order to use `bedtools` to identify the nearest features (exons).
 
 ```bash
 genome_fa=/STORAGE/Genomes/Gencode/hg38/GRCh38.primary_assembly.genome.fa
@@ -522,7 +522,30 @@ path=/WORKSPACE/George/CHEK2_RNAisoforms/shortReadData/NZGL00557/
 cd $path
 mkdir $genomeDir"/SJ_indexed"
 
+## re-index genome based on first pass
 STAR --runMode genomeGenerate --genomeDir $genomeDir"/SJ_indexed" --genomeFastaFiles $genome_fa --sjdbFileChrStartEnd P1/*.tab
+
+## 2nd pass
+mkdir P2
+cd P2
+i=0
+for file in trimmedReads/concat/*R1*
+do
+  i=$(( i + 1 ))
+  file2=${file%R1.paired.fastq.gz}R2.paired.fastq.gz
+  out=NZGL00557_sample$i"_"
+  STAR --genomeDir $genomeDir"SJ_indexed" --readFilesIn $file $file2 --readFilesCommand zcat --alignIntronMax 50000 --outFileNamePrefix $out
+done
+
+
+## Convert SJ.out.tab to BED file -- store unique count (col7 in the name)
+for file in ./*SJ*
+do
+  out=${file%.*}.bed
+  awk 'BEGIN { OFS="\t"; str[0]="."; str[1]="+"; str[2]="-" } { print $1, $2-1, $3, "j_" NR ":" $7, 1000, str[$4] }' $file |sort -k1,1 -k2,2n > $out
+done
+
+cd ..
 ```
 
 
