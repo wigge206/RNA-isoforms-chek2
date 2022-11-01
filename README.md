@@ -512,7 +512,7 @@ done
 cd ..
 ```
 
-### Second pass aware
+### Second pass
 The first step is to re-index the genome using the high confidence splice junction identified from the first alignments. The SJ.out.tab files generated for each sample can be listed in the `--sjdbFileChrStartEnd` option. After re-alignment (second pass), the SJ.out.tab files are converted to bed files and sorted in order to use `bedtools` to identify the nearest features (exons).
 
 ```bash
@@ -547,7 +547,9 @@ done
 
 cd ..
 ```
+CHEK2 coords were taken from UCSC/Gencode (v41, hg38) - chr22:28,687,743-28,741,820
 
+`bedextract sample.bed CHEK2.bed > output` 
 
 
 # For Vanessa

@@ -27,7 +27,16 @@ h3{
   text-transform: uppercase;
   font-size: 34px;
   font-weight: 400;
+  display: flex;
 }
+
+.site-title::before, .site-title::after{
+  content: '';
+  margin: auto 1em;
+  border-bottom: solid 1px;
+  flex: 1;
+}
+
 .page-heading, .page-link {
   display: none;
 }
@@ -44,14 +53,14 @@ div.post-content > p {width:65%;max-width:640;}
 nav.toc-fixed {position:fixed;
   top:0;
   left:0;
-  width:20%;
+  width:250px;
   min-height: 100%;
   background: black;
 }
 nav.toc-fixed ul {list-style:none;
   padding-right:0;
   margin-right:0;
-  font-size: 18pt;
+  font-size: 10pt;
 }
 #markdown-toc {
   padding-top: 30px;
