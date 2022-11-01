@@ -50,7 +50,8 @@ h3{
 
 div.wrapper {max-width:65%;margin-right:10%;}
 div.post-content > p {width:65%;max-width:640;}
-nav.toc-fixed {position:fixed;
+nav.toc-fixed {
+  position:fixed;
   top:0;
   left:0;
   width:250px;
@@ -60,7 +61,7 @@ nav.toc-fixed {position:fixed;
 nav.toc-fixed ul {list-style:none;
   padding-right:0;
   margin-right:0;
-  font-size: 10pt;
+  font-size: 12pt;
 }
 #markdown-toc {
   padding-top: 30px;
